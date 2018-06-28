@@ -18,6 +18,10 @@ public class Nodo implements Comparator<Nodo>{
 	public Nodo(int valor) {
 		this(0,valor);
 	}
+	
+	public int posicion() {
+		return this.posicion;
+	}
 
 	@Override
 	public String toString() {

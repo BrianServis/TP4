@@ -1,10 +1,8 @@
 package paquete;
 
 public class GrafoRegular extends Generador {
-
-	private Nodo[] nodos;
-	private Arista[] aristas;
-	private int cantidadAristas;
+	
+	private int grado;
 
 	public GrafoRegular() {
 
@@ -24,11 +22,8 @@ public class GrafoRegular extends Generador {
 		this.nodos = new Nodo[n];
 		this.aristas = new Arista[(n * g) / 2];
 		this.cantidadAristas = 0;
-
-		for (int i = 0; i < this.nodos.length; i++)
-			nodos[i] = new Nodo(i, i + 1);
-
-		generarDadoGrado(g);
+		this.grado = g;
+		super.cargarNodos();
 	}
 	
 	public GrafoRegular(int n, double p) throws Exception{
@@ -45,15 +40,15 @@ public class GrafoRegular extends Generador {
 		this.nodos = new Nodo[n];
 		this.aristas = new Arista[(n * g) / 2];
 		this.cantidadAristas = 0;
-		
-		for (int i = 0; i < this.nodos.length; i++)
-			nodos[i] = new Nodo(i, i + 1);
-		
-		generarDadoGrado(g);
-		
+		this.grado = g;
+		super.cargarNodos();
+	}
+
+	@Override
+	public void generar() {
+		this.generarDadoGrado(this.grado);
 	}
 	
-	@Override
 	public void generarDadoGrado(int g) {
 		if (g == 0)
 			return;
@@ -80,17 +75,5 @@ public class GrafoRegular extends Generador {
 			generarDadoGrado(g-1);
 		}
 
-	}
-
-	public void mostrarNodos() {
-		super.mostrarNodos(this.nodos);
-	}
-	
-	public void mostrarAristas() {
-		super.mostrarArsitas(this.aristas);
-	}
-	
-	public void mostrarAdyacencia() {
-		this.adycencia.verMatrizSimetrica();
 	}
 }
