@@ -5,6 +5,7 @@ public class GrafoNPartito extends Generador{
 	private int grupos;
 	
 	public GrafoNPartito() {
+		
 	}
 	
 	public GrafoNPartito(int n, int g) throws Exception {
@@ -49,14 +50,6 @@ public class GrafoNPartito extends Generador{
 		for (int l = 0; l < grupos[j].length; l++) {
 			this.aristas[this.cantidadAristas++] = new Arista(grupos[i][k], grupos[j][l]);
 			this.adycencia.setFC(grupos[i][k].posicion(), grupos[j][l].posicion(), 1);
-//			System.out.println(this.aristas[this.cantidadAristas-1]);
 		}
-		
-		Arista[] aristasAux = new Arista[this.cantidadAristas];
-		
-		for (int i = 0; i < aristasAux.length; i++)
-			aristasAux[i] = this.aristas[i];
-		
-		this.aristas = aristasAux;
 	}
 }

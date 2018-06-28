@@ -26,7 +26,7 @@ public abstract class Generador {
 	
 	public void mostrarAristas() {
 		System.out.println("Aristas:");
-		for (int i = 0; i < this.aristas.length; i++)
+		for (int i = 0; i < this.cantidadAristas; i++)
 			System.out.println(aristas[i]);
 	}
 	

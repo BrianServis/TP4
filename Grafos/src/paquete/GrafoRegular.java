@@ -34,13 +34,12 @@ public class GrafoRegular extends Generador {
 			throw new Exception("El porcentaje de adyacencia (" + p + ") debe ser 0 <= p <= 1");
 
 		int g = (int) Math.round(p*(n-1));
-		g += ( n % 2 != 0 && g % 2 != 0 )? 1 : 0;
+		this.grado = g + ( ( n % 2 != 0 && g % 2 != 0 )? 1 : 0);
 		
 		this.adycencia = new MatrizSimetrica(n);
 		this.nodos = new Nodo[n];
-		this.aristas = new Arista[(n * g) / 2];
+		this.aristas = new Arista[(n * this.grado) / 2];
 		this.cantidadAristas = 0;
-		this.grado = g;
 		super.cargarNodos();
 	}
 
