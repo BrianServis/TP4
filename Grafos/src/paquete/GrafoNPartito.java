@@ -1,6 +1,6 @@
 package paquete;
 
-public class GrafoNPartito extends Generador{
+public class GrafoNPartito extends Grafo{
 	
 	private int grupos;
 	
@@ -31,12 +31,11 @@ public class GrafoNPartito extends Generador{
 		this.generarDadoNodoGrupos();
 	}
 
-	public void generarDadoNodoGrupos() {
+	private void generarDadoNodoGrupos() {
 		Nodo[][] grupos = new Nodo[this.grupos][];
 		
-		int n = this.nodos.length;
-		int cantidad = n / this.grupos;
-		int resto = n % this.grupos;
+		int cantidad = this.nodos.length / this.grupos;
+		int resto = this.nodos.length % this.grupos;
 		int nodo = 0;
 		for (int i = 0; i < grupos.length; i++) {
 			grupos[i] = new Nodo[cantidad +  (i < this.grupos - resto ? 0 : 1)];

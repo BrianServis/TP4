@@ -6,6 +6,7 @@ public class Nodo implements Comparator<Nodo>{
 
 	private int posicion;
 	private int valor;
+	private int grado;
 	
 	public Nodo() {
 	}
@@ -19,8 +20,20 @@ public class Nodo implements Comparator<Nodo>{
 		this(0,valor);
 	}
 	
+	public int valor() {
+		return this.valor;
+	}
+	
 	public int posicion() {
 		return this.posicion;
+	}
+	
+	public void setGrado(int g) {
+		this.grado = g;
+	}
+	
+	public void mostrar() {
+		System.out.println(posicion + ".Nodo [" + valor + "] grado:" + grado);
 	}
 
 	@Override
@@ -44,8 +57,6 @@ public class Nodo implements Comparator<Nodo>{
 
 	@Override
 	public int compare(Nodo uno, Nodo dos) {
-		return uno.valor - dos.valor;
+		return uno.grado - dos.grado;
 	}
-	
-	
 }

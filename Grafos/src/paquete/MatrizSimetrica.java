@@ -42,9 +42,47 @@ public class MatrizSimetrica {
 		System.out.println("Matriz simetrica");
 		for (int i = 0; i < this.n; i++) {
 			for (int j = 0; j < this.n; j++)
-				System.out.print(String.format("%-3s ", getFC(i, j) == null ? "-" : String.valueOf(getFC(i, j))));
+				System.out.print(String.format("%-2s ", getFC(i, j) == null ? "-" : String.valueOf(getFC(i, j))));
 			System.out.println();
 		}
+	}
+	
+	public Integer gradoMaximo() {
+		int maximo = 0;
+		
+		for (int i = 0; i < this.n; i++) {
+			int grado = 0;
+			for (int j = 0; j < this.n; j++)
+				if( getFC(i, j) != null )
+					grado++;
+			maximo = Math.max(maximo, grado);
+		}
+		
+		return maximo;
+	}
+	
+	public Integer gradoMinimo() {
+		int minimo = this.n-1;
+		
+		for (int i = 0; i < this.n; i++) {
+			int grado = 0;
+			for (int j = 0; j < this.n; j++)
+				if( getFC(i, j) != null )
+					grado++;
+			minimo = Math.min(minimo, grado);
+		}
+		
+		return minimo;
+	}
+	
+	public int gradoNodo(int n) {
+		int grado = 0;
+		
+		for (int i = 0; i < this.n; i++)
+			if( getFC(n, i) != null )
+				grado++;
+		
+		return grado;
 	}
 	
 	@Override

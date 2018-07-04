@@ -5,6 +5,7 @@ public class Arista {
 	private Nodo origen;
 	private Nodo destino;
 	private int peso;
+	private boolean ponederada;
 	
 	public Arista() {
 	}
@@ -13,10 +14,13 @@ public class Arista {
 		this.origen = origen;
 		this.destino = destino;
 		this.peso = peso;
+		this.ponederada = true;
 	}
 	
 	public Arista(Nodo origen, Nodo destino) {
-		this(origen, destino, 0);
+		this.origen = origen;
+		this.destino = destino;
+		this.ponederada = false;
 	}
 	
 	public Nodo origen() {
@@ -33,7 +37,10 @@ public class Arista {
 
 	@Override
 	public String toString() {
-		return "Arista [" + this.origen + " <--( " + this.peso + " )--> " + this.destino + "]";
+		if( this.ponederada )
+			return "Arista [" + this.origen + " <--( " + this.peso + " )--> " + this.destino + "]";
+		else
+			return "Arista [" + this.origen + " <----> " + this.destino + "]";
 	}
 
 	@Override
