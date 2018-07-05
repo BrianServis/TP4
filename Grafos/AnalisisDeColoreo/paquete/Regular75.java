@@ -11,35 +11,45 @@ public class Regular75 {
 		System.out.println();
 		System.out.println("Grafo aleatorio %75");
 		GrafoDeArchivo grafoCinco = new GrafoDeArchivo("grafos\\regular75.in");
-		coloresMinimos = grafoCinco.coloreoAleatorio();
-		for (int i = 1; i < cantidadCorridas; i++) {
-			int cantidadColoresActual = grafoCinco.coloreoAleatorio();
-			if( cantidadColoresActual < coloresMinimos ) {
-				coloresMinimos = cantidadColoresActual;
-				iteracion = i;
-			}
-		}
-		System.out.println("(Aleatorio) 	Cantidad minima de colores " + coloresMinimos + " en iteracion " + iteracion);
 		
+		System.out.println("\nAleatorio");
+		coloresMinimos = grafoCinco.coloreoAleatorio();
+		iteracion = 0;
+		for (int i = 1; i < cantidadCorridas; i++) {
+			int cantidadColoresActual = grafoCinco.coloreoAleatorio();
+			if( cantidadColoresActual < coloresMinimos ) {
+				coloresMinimos = cantidadColoresActual;
+				iteracion = i;
+				System.out.println("\tNuevo minimo: " + coloresMinimos + " en iteracion " +iteracion);
+			}
+		}
+		System.out.println("\n\tCantidad minima de colores " + coloresMinimos + " en iteracion " + iteracion);
+		
+		System.out.println("\nMatula");
 		coloresMinimos = grafoCinco.coloreoMatula();
+		iteracion = 0;
 		for (int i = 1; i < cantidadCorridas; i++) {
-			int cantidadColoresActual = grafoCinco.coloreoAleatorio();
+			int cantidadColoresActual = grafoCinco.coloreoMatula();
 			if( cantidadColoresActual < coloresMinimos ) {
 				coloresMinimos = cantidadColoresActual;
 				iteracion = i;
+				System.out.println("\tNuevo minimo: " + coloresMinimos + " en iteracion " +iteracion);
 			}
 		}
-		System.out.println("(Matula) 	Cantidad minima de colores " + coloresMinimos + " en iteracion " + iteracion);
+		System.out.println("\n\tCantidad minima de colores " + coloresMinimos + " en iteracion " + iteracion);
 	
+		System.out.println("\nWelshPowell");
 		coloresMinimos = grafoCinco.coloreoWelshPowell();
+		iteracion = 0;
 		for (int i = 1; i < cantidadCorridas; i++) {
-			int cantidadColoresActual = grafoCinco.coloreoAleatorio();
+			int cantidadColoresActual = grafoCinco.coloreoWelshPowell();
 			if( cantidadColoresActual < coloresMinimos ) {
 				coloresMinimos = cantidadColoresActual;
 				iteracion = i;
+				System.out.println("\tNuevo minimo: " + coloresMinimos + " en iteracion " +iteracion);
 			}
 		}
-		System.out.println("(Welsh-Powell)	Cantidad minima de colores " + coloresMinimos + " en iteracion " + iteracion);
+		System.out.println("\n\tCantidad minima de colores " + coloresMinimos + " en iteracion " + iteracion);
 	}
 
 }
