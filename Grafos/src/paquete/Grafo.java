@@ -17,9 +17,23 @@ public abstract class Grafo {
 	protected Nodo[] nodos;
 	protected Arista[] aristas;
 	protected int cantidadAristas;
+	private int[] colorDelNodo;
 	
 	public Grafo() {
 
+	}
+	
+	public void grabar(String archivo) throws IOException {
+		PrintWriter salida = new PrintWriter(new FileWriter(archivo));
+		
+		salida.print(this.nodos.length + " " + this.cantidadAristas + " ");
+		salida.print(String.format("%.2f ", (float)(2*this.cantidadAristas) / (this.nodos.length * this.nodos.length - this.nodos.length)));
+		salida.print(this.adycencia.gradoMaximo() + " " + this.adycencia.gradoMinimo());
+		salida.println();
+		for (int i = 0; i < aristas.length; i++)
+			salida.println(aristas[i].origen().valor() + " " + aristas[i].destino().valor());
+		
+		salida.close();
 	}
 	
 	public abstract void generar();
@@ -36,7 +50,7 @@ public abstract class Grafo {
 		}
 	}
 	
-	public void coloreoWelshPowell() {
+	public int coloreoWelshPowell() {
 		cargarGrados();
 		PriorityQueue<Nodo> monticuloMaximo = new PriorityQueue<Nodo>(Collections.reverseOrder(new Nodo()));
 		for (int i = 0; i < nodos.length; i++)
@@ -45,10 +59,10 @@ public abstract class Grafo {
 //		while (!monticuloMaximo.isEmpty())
 //			monticuloMaximo.poll().mostrar();
 		
-		colorearGrafo(monticuloMaximo);
+		return colorearGrafo(monticuloMaximo);
 	}
 	
-	public void coloreoMatula() {
+	public int coloreoMatula() {
 		cargarGrados();
 		PriorityQueue<Nodo> monticuloMinimo = new PriorityQueue<Nodo>(new Nodo());
 		for (int i = 0; i < nodos.length; i++)
@@ -57,10 +71,10 @@ public abstract class Grafo {
 //		while (!monticuloMinimo.isEmpty())
 //			monticuloMinimo.poll().mostrar();
 		
-		colorearGrafo(monticuloMinimo);
+		return colorearGrafo(monticuloMinimo);
 	}
 	
-	public void coloreoAleatorio() {
+	public int coloreoAleatorio() {
 		ArrayList<Nodo> nodosDesordenados = new ArrayList<>();
 		
 		for (int i = 0; i < nodos.length; i++)
@@ -75,7 +89,7 @@ public abstract class Grafo {
 //		for (Nodo nodo : nodosDesordenados) {
 //			System.out.println(nodo);
 //		}
-		System.out.println("Monticulo");
+//		System.out.println("Monticulo");
 		Queue<Nodo> monticuloAleaotrio = new LinkedList<>();
 		for (Nodo nodo : nodosDesordenados)
 			monticuloAleaotrio.add(nodo);
@@ -83,12 +97,12 @@ public abstract class Grafo {
 //		while (!monticuloAleaotrio.isEmpty())
 //			monticuloAleaotrio.poll().mostrar();
 		
-		colorearGrafo(monticuloAleaotrio);
+		return colorearGrafo(monticuloAleaotrio);
 	}
 	
 	private int colorearGrafo(Queue<Nodo> cola) {
 		boolean[] estaColoreado = new boolean[this.nodos.length];
-		int[] colorDelNodo = new int[this.nodos.length];
+		this.colorDelNodo = new int[this.nodos.length];
 		int cantidadColores = 0;
 		
 		while (!cola.isEmpty()) {
@@ -99,23 +113,70 @@ public abstract class Grafo {
 			do {
 				puedoColorear = true;
 				for (int i = 0; i < nodos.length && puedoColorear; i++)
-				if( this.adycencia.getFC(nodo, i) != null && estaColoreado[i] == true && colorDelNodo[i] == color ) {
+				if( this.adycencia.getFC(nodo, i) != null && estaColoreado[i] == true && this.colorDelNodo[i] == color ) {
 					puedoColorear = false;
 					color++;
 				}
 				
 			} while (puedoColorear == false);
 			
-			colorDelNodo[nodo] = color;
+			this.colorDelNodo[nodo] = color;
 			estaColoreado[nodo] = true;
 			cantidadColores = Math.max(cantidadColores, color);
 		}
 		
-		for (int i = 0; i < nodos.length; i++)
-			System.out.println(this.nodos[i] + " color: " + colorDelNodo[i]);
-		
-		System.out.println("Cantidad de colores: " + cantidadColores);
 		return cantidadColores;
+	}
+	
+	public void grbarColoreoWelshPowell(String archivo) throws IOException {
+		PrintWriter salida = new PrintWriter(new FileWriter(archivo));
+		
+		int cantidadColores = coloreoWelshPowell();
+		
+		salida.print(this.nodos.length + " " + cantidadColores +  " " + this.cantidadAristas + " ");
+		salida.print(String.format("%.2f ", (float)(2*this.cantidadAristas) / (this.nodos.length * this.nodos.length - this.nodos.length)));
+		salida.print(this.adycencia.gradoMaximo() + " " + this.adycencia.gradoMinimo());
+		salida.println();
+		
+		for (int i = 0; i < nodos.length; i++)
+			salida.println(this.nodos[i].valor() + " " + colorDelNodo[i]);
+		
+		
+		salida.close();
+	}
+	
+	public void grbarColoreoMatula(String archivo) throws IOException {
+		PrintWriter salida = new PrintWriter(new FileWriter(archivo));
+		
+		int cantidadColores = coloreoMatula();
+		
+		salida.print(this.nodos.length + " " + cantidadColores +  " " + this.cantidadAristas + " ");
+		salida.print(String.format("%.2f ", (float)(2*this.cantidadAristas) / (this.nodos.length * this.nodos.length - this.nodos.length)));
+		salida.print(this.adycencia.gradoMaximo() + " " + this.adycencia.gradoMinimo());
+		salida.println();
+		
+		for (int i = 0; i < nodos.length; i++)
+			salida.println(this.nodos[i].valor() + " " + colorDelNodo[i]);
+		
+		
+		salida.close();
+		}
+	
+	public void grbarColoreoAleatorio(String archivo) throws IOException {
+		PrintWriter salida = new PrintWriter(new FileWriter(archivo));
+		
+		int cantidadColores = coloreoAleatorio();
+		
+		salida.print(this.nodos.length + " " + cantidadColores +  " " + this.cantidadAristas + " ");
+		salida.print(String.format("%.2f ", (float)(2*this.cantidadAristas) / (this.nodos.length * this.nodos.length - this.nodos.length)));
+		salida.print(this.adycencia.gradoMaximo() + " " + this.adycencia.gradoMinimo());
+		salida.println();
+		
+		for (int i = 0; i < nodos.length; i++)
+			salida.println(this.nodos[i].valor() + " " + colorDelNodo[i]);
+		
+		
+		salida.close();
 	}
 	
 	public void desordenar() {
@@ -142,18 +203,5 @@ public abstract class Grafo {
 	
 	public void mostrarAdyacencia() {
 		this.adycencia.verMatrizSimetrica();
-	}
-	
-	public void grabar(String archivo) throws IOException {
-		PrintWriter salida = new PrintWriter(new FileWriter(archivo));
-		
-		salida.print(this.nodos.length + " " + this.cantidadAristas + " ");
-		salida.print(String.format("%.2f ", (float)(2*this.cantidadAristas) / (this.nodos.length * this.nodos.length - this.nodos.length)));
-		salida.print(this.adycencia.gradoMaximo() + " " + this.adycencia.gradoMinimo());
-		salida.println();
-		for (int i = 0; i < aristas.length; i++)
-			salida.println(aristas[i].origen().valor() + " " + aristas[i].destino().valor());
-		
-		salida.close();
 	}
 }

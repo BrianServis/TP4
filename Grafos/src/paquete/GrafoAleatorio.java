@@ -37,7 +37,7 @@ public class GrafoAleatorio extends Grafo{
 			throw new Exception("El porcentaje de adyacencia (" + p + ") debe ser 0 <= p <= 1");
 		
 		int ca = (int) Math.round(p * ( (n * n - n) / 2) );
-		System.out.println("Cantidad de aristas: " + ca);
+//		System.out.println("Cantidad de aristas: " + ca);
 		this.adycencia = new MatrizSimetrica(n);
 		this.nodos = new Nodo[n];
 		this.aristas = new Arista[ca];

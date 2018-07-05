@@ -1,0 +1,25 @@
+
+Grafo aleatorio %40
+(Aleatorio)	 Cantidad minima de colores 64 en iteracion 51
+(Matula)	 Cantidad minima de colores 64 en iteracion 22
+(Welsh-Powell)	 Cantidad minima de colores 64 en iteracion 76
+
+Grafo aleatorio %60
+(Aleatorio) 	Cantidad minima de colores 99 en iteracion 709
+(Matula) 	Cantidad minima de colores 98 en iteracion 264
+(Welsh-Powell) 	Cantidad minima de colores 98 en iteracion 264
+
+Grafo aleatorio %90
+(Aleatorio)	Cantidad minima de colores 199 en iteracion 320
+(Matula) 	Cantidad minima de colores 200 en iteracion 56
+(Welsh-Powell) 	Cantidad minima de colores 199 en iteracion 334
+
+Grafo regular %50
+(Aleatorio)	Cantidad minima de colores 335 en iteracion 26
+(Matula) 	Cantidad minima de colores 334 en iteracion 650
+(Welsh-Powell) 	Cantidad minima de colores 335 en iteracion 89
+
+Grafo aleatorio %75
+(Aleatorio) 	Cantidad minima de colores 500 en iteracion 40
+(Matula) 	Cantidad minima de colores 500 en iteracion 19
+(Welsh-Powell)	Cantidad minima de colores 500 en iteracion 32
