@@ -1,6 +1,7 @@
 package paquete;
 
 import java.util.Comparator;
+import java.util.Random;
 
 public class Nodo implements Comparator<Nodo>{
 
@@ -57,6 +58,12 @@ public class Nodo implements Comparator<Nodo>{
 
 	@Override
 	public int compare(Nodo uno, Nodo dos) {
+		Random rand = new Random();
+		if( uno.grado != dos.grado )
 		return uno.grado - dos.grado;
+		if( rand.nextInt() % 2 == 0 )
+			return -1;
+		else
+			return 1;
 	}
 }
